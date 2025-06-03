@@ -1,2 +1,2 @@
-# WEB-PROJECT
-Charity-Jet--Donation-Website-master - this project represent the website where we can able to donate charity towards the education, healthcare, child welfare, and disaster relief directly , so it makes the confirmation that our charity will have be donated correctly with no conflicts... it may easy the things .......
+# Charity-Jet--Donation-Website
+Charity Jet is a Donation Website with integrated payment gateway using Razorpay. 
