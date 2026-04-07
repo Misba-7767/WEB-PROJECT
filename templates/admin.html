@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-900 text-white flex">
+
+<!-- SIDEBAR -->
+<div class="w-64 bg-slate-800 min-h-screen p-6">
+    <h1 class="text-2xl font-bold text-green-400 mb-10">Admin Panel</h1>
+
+    <a href="/dashboard" class="block mb-4 hover:text-green-400">📊 Dashboard</a>
+    <a href="/logout" class="block hover:text-red-400">🚪 Logout</a>
+</div>
+
+<!-- MAIN -->
+<div class="flex-1 p-8">
+
+    <!-- HEADER -->
+    <h2 class="text-3xl font-bold mb-8">👑 Admin Dashboard</h2>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-3 gap-6 mb-10">
+
+        <div class="bg-slate-800 p-6 rounded-xl">
+            <p>Total Donations</p>
+            <h2 class="text-2xl text-green-400">₹{{ total }}</h2>
+        </div>
+
+        <div class="bg-slate-800 p-6 rounded-xl">
+            <p>Total Users</p>
+            <h2 class="text-2xl text-blue-400">{{ users|length }}</h2>
+        </div>
+
+        <div class="bg-slate-800 p-6 rounded-xl">
+            <p>Total Transactions</p>
+            <h2 class="text-2xl text-purple-400">{{ donations|length }}</h2>
+        </div>
+
+    </div>
+
+     <h3 class="text-xl mb-4">Donation Analytics</h3>
+    <canvas id="adminChart"></canvas>
+</div>
+
+
+    <!-- USERS TABLE -->
+    <div class="mb-10">
+        <h3 class="text-xl mb-4">Users</h3>
+
+        <table class="w-full bg-slate-800 rounded">
+           {% for u in users %}
+<tr class="border-b border-slate-700">
+    <td class="p-3">{{ u.username }}</td>
+    <td class="p-3">{{ u.role }}</td>
+    <td class="p-3 flex gap-2">
+
+        <a href="/toggle_role/{{ u.id }}"
+           class="bg-blue-500 px-3 py-1 rounded">
+           Switch Role
+        </a>
+
+        <a href="/delete_user/{{ u.id }}"
+           class="bg-red-500 px-3 py-1 rounded">
+           Delete
+        </a>
+
+    </td>
+</tr>
+{% endfor %}
+        </table>
+    </div>
+
+    <!-- DONATIONS TABLE -->
+    <div>
+        <h3 class="text-xl mb-4">Donations</h3>
+
+        <table class="w-full bg-slate-800 rounded">
+            <tr class="bg-slate-700">
+                <th class="p-3">User</th>
+                <th class="p-3">Amount</th>
+                <th class="p-3">Date</th>
+                <th class="p-3">Action</th>
+            </tr>
+
+            {% for d in donations %}
+            <tr class="border-b border-slate-700">
+                <td class="p-3">{{ d.username }}</td>
+                <td class="p-3 text-green-400">₹{{ d.amount }}</td>
+                <td class="p-3">{{ d.date }}</td>
+                <td class="p-3">
+                    <a href="/delete_donation/{{ d.id }}"
+                       class="bg-red-500 px-3 py-1 rounded">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+let amounts = {{ amounts | tojson }};
+
+new Chart(document.getElementById("adminChart"), {
+    type: 'bar',
+    data: {
+        labels: amounts.map((_, i) => "Tx " + (i+1)),
+        datasets: [{
+            label: "Donations",
+            data: amounts,
+            backgroundColor: "#22c55e"
+        }]
+    }
+});
+</script>
+</body>
+
+
+</html>

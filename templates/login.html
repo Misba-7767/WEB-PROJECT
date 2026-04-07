@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-900 flex items-center justify-center h-screen">
+
+<div class="bg-white/5 p-8 rounded-xl w-96 backdrop-blur">
+
+<h2 class="text-white text-2xl mb-6 text-center">Login</h2>
+
+<form method="POST">
+<input name="username" placeholder="Username" class="w-full p-3 mb-3 text-black">
+<input name="password" type="password" placeholder="Password" class="w-full p-3 mb-4 text-black">
+
+<button class="w-full bg-green-500 py-3 rounded">Login</button>
+</form>
+
+<form method="POST" action="/signup" class="mt-4">
+<input name="username" placeholder="New Username" class="w-full p-2 mb-2 text-black">
+<input name="password" type="password" placeholder="New Password" class="w-full p-2 mb-2 text-black">
+<button class="w-full bg-blue-500 py-2">Signup</button>
+</form>
+
+</div>
+
+</body>
+</html>
